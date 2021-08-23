@@ -195,6 +195,229 @@ font-family: monospace;
 
 
 
+														<h6>Parking Lot Calculations</h6>
+
+														Total Number of Customers that required parking over 3 years.
+
+														<p class='tmancode'>
+															WITH hotels_ytd as (<br>
+															SELECT * FROM dbo.['2018$']<br>
+																UNION<br>
+															SELECT * FROM dbo.['2019$']<br>
+																UNION<br>
+															SELECT * FROM dbo.['2020$'])<br>
+															SELECT count(required_car_parking_spaces) <br>
+															FROM hotels_ytd <br>
+															WHERE required_car_parking_spaces != 0 <br>
+															
+				
+				
+														</p>
+
+														We get 8640. Which is 8.58% of total number of bookings. <br>
+
+														Total Number of Customers that required parking over 3 years arranged by year.
+
+														
+
+
+														<p class="tmancode">
+															WITH hotels_ytd as (<br>
+																SELECT * FROM dbo.['2018$']<br>
+																UNION<br>
+																SELECT * FROM dbo.['2019$']<br>
+																UNION<br>
+																SELECT * FROM dbo.['2020$'])<br>
+																
+																SELECT count(required_car_parking_spaces) AS required_parking,<br>
+																arrival_date_year<br>
+																FROM hotels_ytd <br>
+																WHERE required_car_parking_spaces != 0<br>
+																GROUP BY arrival_date_year<br>
+
+
+														</p>
+
+														<table>
+															<tr>
+															  <th>Year</th>
+															  <th>Bookings That Required Parking</th>
+															  <th>Total Bookings</th>
+															
+															  <th>Parking Bookings vs All Bookings %age</th>
+															</tr>
+															<tr>
+															  <td>2018</td>
+															  <td>1327</td>
+															  <td>13313</td>
+															 
+															  <td>9.97</td>
+															</tr>
+															<tr>
+																<td>2019</td>
+																<td>5137</td>
+																<td>55751</td>
+															
+																<td>9.21</td>
+															  </tr>
+															  <tr>
+																<td>2020</td>
+																<td>2176</td>
+																<td>31692</td>
+																
+																<td>6.87</td>
+															  </tr>
+															  
+
+															
+																
+																</table>
+
+
+															
+
+																<h4>Market Segment Calculation</h4>
+
+																Identifying types of customers will help to focus on what features we need to focus on.
+
+																This tells us the amount of bookings that were made by customers without any children or babies. 
+
+																<p class="tmancode">
+																	WITH hotels_ytd as (
+																		SELECT * FROM dbo.['2018$']
+																		UNION
+																		SELECT * FROM dbo.['2019$']
+																		UNION
+																		SELECT * FROM dbo.['2020$'])																
+																		select count(*),
+																		arrival_date_year
+																		from hotels_ytd
+																		where children = 0 AND babies = 0
+																		group by arrival_date_year
+		
+		
+																</p>
+
+
+																<table>
+																	<thead>
+																	  <tr>
+																		<th>Year</th>
+																		<th>Hotel type</th>
+																		<th>No Children Bookings</th>
+																		<th>Total Bookings</th>
+																		<th>Percentage of No children Bookings</th>
+																	  </tr>
+																	</thead>
+																	<tbody>
+																	  <tr>
+																		<td>2018</td>
+																		<td>City Hotel</td>
+																		<td>6163</td>
+																		<td>6550</td>
+																		<td>94.09</td>
+																	  </tr>
+																	  <tr>
+																		<td>2018</td>
+																		<td>Resort Hotel</td>
+																		<td>6072</td>
+																		<td>6763</td>
+																		<td>89.78</td>
+																	  </tr>
+																	  <tr>
+																		<td><strong>Total</strong></td>
+																		<td></td>
+																		<td><strong>12235</strong></td>
+																		<td> <strong>13313</strong></td>
+																		<td><strong>91.90</strong></td>
+																	  </tr>
+																	  <tr>
+																		<td>2019</td>
+																		<td>City Hotel</td>
+																		<td>30158</td>
+																		<td>33309</td>
+																		<td>90.54</td>
+																	  </tr>
+																	  <tr>
+																		<td>2019</td>
+																		<td>Resort Hotel</td>
+																		<td>20123</td>
+																		<td>22442</td>
+																		<td>89.67</td>
+																	  </tr>
+																	  <tr>
+																		<td><strong>Total</strong></td>
+																		<td></td>
+																		<td><strong>50281</strong></strong></td>
+																		<td><strong>55751</strong></td>
+																		<td><strong>90.19</strong></td>
+																	  </tr>
+																	  <tr>
+																		<td>2020</td>
+																		<td>City Hotel</td>
+																		<td>18032</td>
+																		<td>20119</td>
+																		<td>89.63</td>
+																	  </tr>
+																	  <tr>
+																		<td>2020</td>
+																		<td>Resort Hotel</td>
+																		<td>10016</td>
+																		<td>11573</td>
+																		<td>86.54</td>
+																	  </tr>
+																	  <tr>
+																		<td><strong>Total</strong></td>
+																		<td></td>
+																		<td><strong>28048</strong></td>
+																		<td><strong>31692</strong></td>
+																		<td><strong>88.50</strong></td>
+																	  </tr>
+																	</tbody>
+																	</table>
+
+
+
+
+
+
+
+
+											
+
+
+
+														<h4>Data Viz</h4>
+
+
+														<p>We are going to identify the separate markets. 
+															Therefore we need to join the other sheets with our present table. 
+															We will use a LEFT JOIN to do this. our "hotels_ytd" has a foreign key "market_segment" 
+															which is a primary key in the market segment table.</p>
+
+
+															<p class='tmancode'>
+																WITH hotels_ytd as (<br>
+																SELECT * FROM dbo.['2018$']<br>
+																	UNION<br>
+																SELECT * FROM dbo.['2019$']<br>
+																	UNION<br>
+																SELECT * FROM dbo.['2020$'])<br>
+	
+																SELECT * FROM hotels_ytd <br>
+																LEFT JOIN dbo.market_segment$<br>
+																ON hotels_ytd.market_segment = market_segment$.market_segment<br>
+																LEFT JOIN dbo.meal_cost$<br>
+																ON meal_cost$.meal = hotels_ytd.meal<br>
+					
+					
+															</p>
+
+
+															<p> We will import this key into PowerBI and prepare the Data Viz Attached below.</p>
+
+
+
 
 
 
