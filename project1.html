@@ -114,10 +114,89 @@ font-family: monospace;
 											SELECT * FROM dbo.['2018$']<br></p>
 
 
-											<p>
+											
 
 											<p>Our Merge is Successful!</p>
 											<img src="/images/1.png" width="100%" height="600">
+
+											<p> We will give this query a name since we will need to call on it in the future. We will use the WITH clause for this.</p>
+											
+											<p class='tmancode'>
+												WITH hotels_ytd as (<br>
+													SELECT * FROM dbo.['2018$']<br>
+													UNION<br>
+													SELECT * FROM dbo.['2019$']<br>
+													UNION<br>
+													SELECT * FROM dbo.['2020$'])<br>
+													
+													SELECT * FROM hotels_ytd<br>
+	
+	
+											</p>
+
+												<p>Now we will call queries to calculate the revenue.</p>
+
+
+												<p class='tmancode'>
+													WITH hotels_ytd as (<br>
+														SELECT * FROM dbo.['2018$']<br>
+														UNION<br>
+														SELECT * FROM dbo.['2019$']<br>
+														UNION<br>
+														SELECT * FROM dbo.['2020$'])<br>
+														SELECT arrival_date_year, <br>
+														(stays_in_week_nights+stays_in_weekend_nights)*adr AS revenue<br>
+														FROM hotels_ytd<br>
+		
+		
+												</p>
+														<img src="/images/2.png" width="100%" height="300">
+														<p>As you can see it is messy and not useful to us. We will group it according to year.</p>
+
+
+														<p class='tmancode'>
+															WITH hotels_ytd as (<br>
+															SELECT * FROM dbo.['2018$']<br>
+																UNION<br>
+															SELECT * FROM dbo.['2019$']<br>
+																UNION<br>
+															SELECT * FROM dbo.['2020$'])<br>
+
+															SELECT arrival_date_year, <br>
+															sum((stays_in_week_nights+stays_in_weekend_nights)*adr) AS revenue<br>
+															FROM hotels_ytd<br>
+															GROUP BY arrival_date_year<br>
+				
+				
+														</p>
+
+														<img src="/images/3.png" width="100%" height="300">
+
+														<p>My goal is to differntiate this by the hotel type.</p>
+
+														<p class='tmancode'>
+															WITH hotels_ytd as (<br>
+															SELECT * FROM dbo.['2018$']<br>
+																UNION<br>
+															SELECT * FROM dbo.['2019$']<br>
+																UNION<br>
+															SELECT * FROM dbo.['2020$'])<br>
+
+															SELECT arrival_date_year,<br>
+															hotel, <br>
+															round(sum((stays_in_week_nights+stays_in_weekend_nights)*adr),2) AS revenue<br>
+															FROM hotels_ytd<br>
+															GROUP BY arrival_date_year,hotel<br>
+				
+				
+														</p>
+														<p>Much Cleaner!</p>
+														<img src="/images/4.png" width="100%" height="300">
+
+
+
+
+
 
 
 
