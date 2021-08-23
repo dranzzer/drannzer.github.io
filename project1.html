@@ -7,6 +7,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+		<style>
+
+
+.tmancode{
+font-family: monospace;
+
+
+}
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -25,6 +35,7 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
+							<li><a href="index.html" class="active">Home</a></li>
 							<li><a href="#intro" class="active">About Me</a></li>
 							<li><a href="#first">Projects</a></li>
 						<!--	<li><a href="#second">Second Section</a></li> -->
@@ -40,15 +51,86 @@
 								<div class="spotlight">
 									<div class="content">
 										<header class="major">
-											<h2>Project 1 Title</h2>
+											<h2>Hotel Growth Trends Analysis using SQL&PowerBI</h2>
+											<h3><strong>Key Questions</strong></h3>
 										</header>
-										<p>I am a former Management Accountant turned Lecturer. During my time as an Accountant I enjoyed Analysing Business Processes with Excel,
-											 and automating tasks with Python - naturally I felt like Data Analytics was the next stepping stone for me.
-											  My eventual goal is to become a Data Scientist, but with my given skill set in breaking down complex problems into Data Viz's and Problem Solving,
-											   I feel like being a Data Analyst will help with the transition.</p>
+										
+											<ul>
+												<li>Is our Hotel Revenue growing by the year?</li>
+												<li>Should we increase our Parking Lot Size?</li>
+												<li>What trends can be observed in the data?</li>	
+
+
+											</ul>
+											<h4><strong>Deliverables</strong></h4>
+											<ul>
+												<li>Hotel Revenue Analysis based on Hotel Types and Year</li>
+												<li>Parking Load Capacity VS Actual Usage Analysis</li>
+												<li>Market Demographic Trends</li>
+
+
+											</ul>
+
+
+
+											<h4>Executive Summary</h4>
+										
+											<ul>
+
+
+												<li>Hotel Revenue is increasing by the year</li>
+											</ul>
+
+
+											<h4>Revenue Analysis</h4>
+											<p> The Initial Data Set came with over 50k entries per year. Therefore using Excel to maniplate the data to gain insights would not be appropriate. R or SQL would have to be used. I preferred to use SQL in this project.<br>
+												Our first task would be to get all the entries into a single sheet. Before we merge, we need to ensure that all three tables have the same columms and data types. Therefore we will run the following SQL code (the SQL Interface that I used for this project was Microsoft SQL Server Management Studio 18 ):
+											
+											
+												<br>
+												
+
+											</p>
+
+
+
+										<p class='tmancode'>
+											SELECT * FROM dbo.['2018$']<br>
+											SELECT * FROM dbo.['2018$']<br>
+											SELECT * FROM dbo.['2018$']<br></p>
+
+
+											<p>
+
+										<p>After manually verifying(automating soon!) if all the columns are the same we proceed to merge them using UNION</p>
+
+
+
+											<p class='tmancode'>
+											SELECT * FROM dbo.['2018$']<br>
+											UNION<br>
+											SELECT * FROM dbo.['2018$']<br>
+											UNION<br>
+											SELECT * FROM dbo.['2018$']<br></p>
+
+
+											<p>
+
+											<p>Our Merge is Successful!</p>
+											<img src="/images/1.png" width="500" height="600">
+
+
+
+
+
+
+
+
+
+										
 										
 									</div>
-									<span class="image"><img src="images/pic01.jpg" alt="" /></span>
+									<!-- <span class="image"><img src="images/pic01.jpg" alt="" /></span> -->
 								</div>
 							</section>
 
